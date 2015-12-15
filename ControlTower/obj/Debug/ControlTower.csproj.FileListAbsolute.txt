@@ -1,0 +1,15 @@
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\bin\Debug\ControlTower.exe.config
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\bin\Debug\ControlTower.exe
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\bin\Debug\ControlTower.pdb
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\ControlTower.csprojResolveAssemblyReference.cache
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\FlightWindowObject.baml
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\MainWindow.baml
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\FlightWindowObject.g.cs
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\MainWindow.g.cs
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\App.g.cs
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\ControlTower_MarkupCompile.cache
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\ControlTower.g.resources
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\ControlTower.Properties.Resources.resources
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\ControlTower.csproj.GenerateResource.Cache
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\ControlTower.exe
+C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\obj\Debug\ControlTower.pdb
