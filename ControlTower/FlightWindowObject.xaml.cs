@@ -14,86 +14,6 @@ using System.Windows.Shapes;
 
 namespace ControlTower
 {
-
-    //EventArgs
-    public class LandEventArgs : EventArgs
-    {
-        public Airplane Landing { get; set; }
-    }
-    public class StartEventArgs : EventArgs
-    {
-        public Airplane Start { get; set; }
-    }
-
-
-    //Class RunWay, 
-    public class RunWay
-    {
-
-        //public delegate void videoEncodedEventHandler(object source, EventArgs args);
-        //public event videoEncodedEventHandler VideoEncoded;
-
-        public event EventHandler<LandEventArgs> RunWayBookedLanding;
-        public event EventHandler<StartEventArgs> RunWayBookedStartOff;
-
-        public void runWay_Book(Airplane obj)
-        {
-            //MessageBox.Show("Booking runway...");
-
-            OnRunWay_Booked_StartOff(obj);
-            OnRunWay_Booked_Landing(obj);
-        }
-
-
-        protected virtual void OnRunWay_Booked_StartOff(Airplane obj)
-        {
-            //If not null, then the runway booked for start off
-            if (RunWayBookedStartOff != null)
-            {
-                RunWayBookedStartOff(this, new StartEventArgs() { Start = obj });
-            }
-        }
-        protected virtual void OnRunWay_Booked_Landing(Airplane obj)
-        {
-            //If not null, then the runway booked for landing
-            if (RunWayBookedLanding != null)
-            {
-                RunWayBookedLanding(this, new LandEventArgs() { Landing = obj });
-            }
-        }
-
-
-    }
-
-    public class StartOff
-    {
-        /// <summary>
-        /// Set the status property of the object
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e">Airplane object</param>
-        public void OnRunWay_Booked(object source, StartEventArgs e)
-        {
-            //Airplane test = GetAt(e.Start);
-            e.Start.statusProperty = EnumFlightTower.EnumStatus.TakeOff.ToString();
-            MessageBox.Show("Info: You changed the flight (" + e.Start.FlightNumber + ") status to: " + e.Start.statusProperty);
-        }
-    }
-
-    public class Land
-    {
-        /// <summary>
-        /// Set the status property of the object
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="e">Airplane object</param>
-        public void OnRunWay_Booked(object source, LandEventArgs e)
-        {
-            e.Landing.statusProperty = EnumFlightTower.EnumStatus.Land.ToString();
-            MessageBox.Show("Info: You changed the flight (" + e.Landing.FlightNumber + ") status to:" + e.Landing.statusProperty);
-        }
-    }
-
     /// <summary>
     /// Interaction logic for FlightWindowObject.xaml
     /// </summary>
@@ -107,6 +27,11 @@ namespace ControlTower
         public string objImage  { get; set; }
 
 
+        public event EventHandler<LandEventArgs> RunWayBookedLanding;
+        public event EventHandler<StartEventArgs> RunWayBookedStartOff;
+        public event EventHandler<ChangeRouteArgs> Changed_routeTT;
+
+
 
         public FlightWindowObject(Airplane AirplaneObject)
         {
@@ -115,13 +40,21 @@ namespace ControlTower
             this.objPlane = AirplaneObject;
             this.objImage = AirplaneObject.imgPlane();
 
-            
+            var land = new LandEventArgs(objPlane);//Subscriber 
+            var runway_Start = new StartEventArgs(objPlane);//Subscriber
+            var changed_route = new ChangeRouteArgs(objPlane);
+
+
+            RunWayBookedStartOff += runway_Start.OnRunWay_Booked;
+            //add subscription
+            RunWayBookedLanding += land.OnRunWay_Booked;
+            Changed_routeTT += changed_route.OnRunWay_Booked;
+
+
+
             InitializeComponent();
-            
             //Update the GUI
             InitializeGUI();
-
-
 
         }
 
@@ -135,7 +68,8 @@ namespace ControlTower
             this.Title = "FlightNumber: " + objPlane.FlightNumber;
 
             //Add info about object to list
-            ListFlightObject.Items.Add(objPlane.ToString());
+            //ListFlightObject.Items.Add(objPlane.ToString());
+            ListFlightObject.Items.Add("Flight NR:" + objPlane.FlightNumber + "     Status: " + objPlane.statusProperty);
 
 
 
@@ -151,23 +85,32 @@ namespace ControlTower
             //Add image from object
             AirplaneImg.Source = bitmap;
 
+
+
+            //listBoxCategories.Items.AddRange(Enum.GetNames(typeof(AnimalTypes.AnimalType)));
+            //listBoxCategories.SelectedIndex = (int)AnimalTypes.MammalsType.Dog;
+            //ChangeRouteComboBox.Items.Add(Enum.GetNames(typeof(EnumFlightTower.ChangeRoutes)));
+            ChangeRouteComboBox.Items.Clear();
+            foreach (var item in (Enum.GetNames(typeof(EnumFlightTower.ChangeRoutes))))
+            {
+                ChangeRouteComboBox.Items.Add(item);
+            }
+
+            ////ChangeRouteComboBox.Items.
+            //ChangeRouteComboBox.SelectedIndex = (int)EnumFlightTower.ChangeRoutes.deg1;
+            //ChangeRouteComboBox.Items.Add("Sunday");
+            //ChangeRouteComboBox.Items.Add("Monday");
+            //ChangeRouteComboBox.Items.Add("Tuesday");
+
         }
 
         private void START_Click(object sender, RoutedEventArgs e)
         {
-            var runWay = new RunWay();//Publisher
-            var runway_Start = new StartOff();//Subscriber
-
-            
-            runWay.RunWayBookedStartOff += runway_Start.OnRunWay_Booked;
-            //runWay.RunWayBookedStartOff += null;
-
-
-            runWay.runWay_Book(objPlane);
-
+            OnRunWay_Booked_StartOff(objPlane);
 
             //Update GUI
             InitializeGUI();
+         
         }
 
 
@@ -175,19 +118,46 @@ namespace ControlTower
 
         private void LAND_Click(object sender, RoutedEventArgs e)
         {
+            OnRunWay_Booked_Landing(objPlane);
 
-            var runWay = new RunWay();//Publisher
-            var land = new Land();//Subscriber 
-
-            //add subscription
-            runWay.RunWayBookedLanding += land.OnRunWay_Booked;
-
-
-
-            runWay.runWay_Book(objPlane);
-
+            ////MessageBox.Show(ChangeRouteComboBox.SelectedIndex.ToString());
+            //MessageBox.Show(ChangeRouteComboBox.SelectedValue.ToString());
             //Update GUI
             InitializeGUI();
+        }
+
+
+
+
+
+        protected virtual void OnRunWay_Booked_StartOff(Airplane obj)
+        {
+            //If not null, then the runway booked for start off
+            if (RunWayBookedStartOff != null)
+            {
+                //RunWayBookedStartOff(this, new StartEventArgs() { Start = obj });
+                RunWayBookedStartOff(this, new StartEventArgs(obj));
+            }
+        }
+
+        protected virtual void OnRunWay_Booked_Landing(Airplane obj)
+        {
+            //If not null, then the runway booked for landing
+            if (RunWayBookedLanding != null)
+            {
+                //RunWayBookedLanding(this, new LandEventArgs() { Landing = obj });
+                RunWayBookedLanding(this, new LandEventArgs(obj));
+            }
+        }
+
+        protected virtual void OnRunWay_Booked_ChangedROUTE(Airplane obj)
+        {
+            //If not null, then the runway booked for landing
+            if (Changed_routeTT != null)
+            {
+                //RunWayBookedLanding(this, new LandEventArgs() { Landing = obj });
+                Changed_routeTT(this, new ChangeRouteArgs(obj));
+            }
         }
 
 
@@ -204,8 +174,99 @@ namespace ControlTower
             LAND.IsEnabled = false;
             btnBackToFlightControl.IsEnabled = true;
         }
+
+        private void ChangeRouteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            OnRunWay_Booked_ChangedROUTE(objPlane);
+
+            //Jag får inte ut det primära changed route värdet.
+            //MessageBox.Show(ChangeRouteComboBox.SelectedValue.ToString());
+
+            InitializeGUI();
+
+        }
     }
 }
+
+//EventArgs
+//public class LandEventArgs : EventArgs
+//{
+//    public Airplane Landing { get; set; }
+//}
+//public class StartEventArgs : EventArgs
+//{
+//    public Airplane Start { get; set; }
+//}
+
+
+//Class RunWay, 
+//public class RunWay
+//{
+
+//    //public delegate void videoEncodedEventHandler(object source, EventArgs args);
+//    //public event videoEncodedEventHandler VideoEncoded;
+
+//    public event EventHandler<LandEventArgs> RunWayBookedLanding;
+//    public event EventHandler<StartEventArgs> RunWayBookedStartOff;
+
+//    public void runWay_Book(Airplane obj)
+//    {
+//        //MessageBox.Show("Booking runway...");
+
+//        OnRunWay_Booked_StartOff(obj);
+//        OnRunWay_Booked_Landing(obj);
+//    }
+
+
+//    protected virtual void OnRunWay_Booked_StartOff(Airplane obj)
+//    {
+//        //If not null, then the runway booked for start off
+//        if (RunWayBookedStartOff != null)
+//        {
+//            RunWayBookedStartOff(this, new StartEventArgs() { Start = obj });
+//        }
+//    }
+//    protected virtual void OnRunWay_Booked_Landing(Airplane obj)
+//    {
+//        //If not null, then the runway booked for landing
+//        if (RunWayBookedLanding != null)
+//        {
+//            RunWayBookedLanding(this, new LandEventArgs() { Landing = obj });
+//        }
+//    }
+
+
+//}
+
+//public class StartOff
+//{
+//    /// <summary>
+//    /// Set the status property of the object
+//    /// </summary>
+//    /// <param name="source"></param>
+//    /// <param name="e">Airplane object</param>
+//    public void OnRunWay_Booked(object source, StartEventArgs e)
+//    {
+//        //Airplane test = GetAt(e.Start);
+//        e.Start.statusProperty = EnumFlightTower.EnumStatus.TakeOff.ToString();
+//        MessageBox.Show("Info: You changed the flight (" + e.Start.FlightNumber + ") status to: " + e.Start.statusProperty);
+//    }
+//}
+
+//public class Land
+//{
+//    /// <summary>
+//    /// Set the status property of the object
+//    /// </summary>
+//    /// <param name="source"></param>
+//    /// <param name="e">Airplane object</param>
+//    public void OnRunWay_Booked(object source, LandEventArgs e)
+//    {
+//        e.Landing.statusProperty = EnumFlightTower.EnumStatus.Land.ToString();
+//        MessageBox.Show("Info: You changed the flight (" + e.Landing.FlightNumber + ") status to:" + e.Landing.statusProperty);
+//    }
+//}
 
 
 //public class EventStart : EventArgs

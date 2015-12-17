@@ -53,13 +53,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChangeRouteClass.cs" />
     <Compile Include="EnumFlightTower.cs" />
     <Compile Include="FlightWindowObject.xaml.cs">
       <DependentUpon>FlightWindowObject.xaml</DependentUpon>
     </Compile>
     <Compile Include="LandClass.cs" />
     <Compile Include="RadarManager.cs" />
-    <Compile Include="RunWayClass.cs" />
     <Compile Include="TakeOffClass.cs" />
     <Page Include="FlightWindowObject.xaml">
       <SubType>Designer</SubType>

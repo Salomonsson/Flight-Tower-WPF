@@ -8,22 +8,52 @@ using System.Windows;
 
 namespace ControlTower
 {
-    public class LandClass : RunWayClass
+
+    public class LandEventArgs : EventArgs
     {
-        public void Subscribe(RunWayClass m)
+        //public Airplane Landing { get; set; }
+        private Airplane objLanding = null;
+
+        public LandEventArgs(Airplane obj)
         {
-            m.Book += new RunWayClass.eventHandlerBook(Landing);
+            objLanding = obj;
         }
 
 
-        private void Landing(RunWayClass m, EventArgs e)
+
+        /// <summary>
+        /// Set the status property of the object
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e">Airplane object</param>
+        public void OnRunWay_Booked(object source, LandEventArgs e)
         {
-
-            MessageBox.Show("Airplane preparing for landing");
-            //System.Threading.Thread.Sleep(3000);
-
-            MessageBox.Show("Runway is free of use");
-
+            DateTime setTime = DateTime.Now;
+            e.objLanding.statusTime = setTime;
+            e.objLanding.statusProperty = EnumFlightTower.EnumStatus.Land.ToString();
+            //MessageBox.Show("Info: You changed the flight (" + e.objLanding.FlightNumber + ") status to:" + e.objLanding.statusProperty);
         }
+
     }
+
+
+
+    //public class LandClass : RunWayClass
+    //{
+    //    //public void Subscribe(RunWayClass m)
+    //    //{
+    //    //    m.Book += new RunWayClass.eventHandlerBook(Landing);
+    //    //}
+
+
+    //    //private void Landing(RunWayClass m, EventArgs e)
+    //    //{
+
+    //    //    MessageBox.Show("Airplane preparing for landing");
+    //    //    //System.Threading.Thread.Sleep(3000);
+
+    //    //    MessageBox.Show("Runway is free of use");
+
+    //    //}
+    //}
 }

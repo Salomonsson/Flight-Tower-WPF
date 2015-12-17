@@ -9,6 +9,7 @@ namespace ControlTower
     class Boeing : Airplane
     {
         protected string ImgPath = @"C:\Users\Psylon\Desktop\boeing.jpg";
+        DateTime TimeNow = DateTime.Now;
         public Boeing()
         {
 
@@ -17,7 +18,7 @@ namespace ControlTower
         public Boeing(int id, string flightNumber, string company)
             : base(id, flightNumber, company)
         {
-
+            statusTime = TimeNow;
         }
 
 
@@ -30,7 +31,6 @@ namespace ControlTower
         }
 
 
-
         public override string imgPlane()
         {
             return this.ImgPath;
@@ -40,7 +40,7 @@ namespace ControlTower
         public override string ToString()
         {
             //return base.ToString() + " Ljud:" + Sound;
-            return base.ToString()  + " STATUS: " + statusProperty;
+            return base.ToString() + " TIME:  " + statusTime + "      STATUS: " + statusProperty;
         }
     }
 }

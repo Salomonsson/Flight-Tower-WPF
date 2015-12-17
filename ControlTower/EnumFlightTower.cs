@@ -15,5 +15,12 @@ namespace ControlTower
             ChangeRoute,
             Unknown
         }
+
+        public enum ChangeRoutes
+        {
+            deg1,
+            deg20,
+            no
+        }
     }
 }

@@ -57,6 +57,7 @@ namespace ControlTower
             foreach (var item in mngrRadar.ToStringArray())
             {
                 listFlightRadar.Items.Add(item.ToString());
+               
             }
         }
 

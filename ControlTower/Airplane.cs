@@ -46,6 +46,8 @@ namespace ControlTower
         public string Company { get; set; } // generates an auto-property
         public string statusProperty { get; set; }
 
+        public DateTime statusTime { get; set; }
+
 
 
         public abstract string GetAirplaneType();
@@ -54,9 +56,10 @@ namespace ControlTower
 
 
 
+
         public override string ToString()
         {
-            string strOut = String.Format("(id:{0}), FlightNumber: {1}, Company:{2} ", Id, FlightNumber, Company);
+            string strOut = String.Format("(id:{0}), FlightNumber: {1},   ", Id, FlightNumber);
 
             strOut = strOut.ToUpper();
             return strOut;

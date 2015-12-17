@@ -4,20 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ControlTower
 {
     class Airbus : Airplane
     {
         protected string ImgPath = @"C:\Users\Psylon\Desktop\airBus380.jpg";
+        DateTime TimeNow = DateTime.Now;
         public Airbus()
         {
-
+            
         }
 
         public Airbus(int id, string flightNumber, string company)
             : base(id, flightNumber, company)
         {
-            //STATUS = "NOT SET";
+            statusTime = TimeNow;
         }
 
 
@@ -26,8 +28,6 @@ namespace ControlTower
         {
             return AirplaneEnumTypes.Airplanes.Airbus.ToString();
         }
-
-
 
         public override string imgPlane()
         {
@@ -38,7 +38,7 @@ namespace ControlTower
         public override string ToString()
         {
             //return base.ToString() + " Ljud:" + Sound;
-            return base.ToString() + " STATUS: " + statusProperty;
+            return base.ToString() + " TIME:  " + statusTime + "      STATUS: " + statusProperty;
         }
     }
 }
