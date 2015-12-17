@@ -11,10 +11,12 @@ namespace ControlTower
     {
         //public Airplane Landing { get; set; }
         private Airplane objChangeRoute = null;
+        private EnumFlightTower.ChangeRoutes setChangedDegree;
 
-        public ChangeRouteArgs(Airplane obj)
+        public ChangeRouteArgs(Airplane obj, EnumFlightTower.ChangeRoutes changedDegree)
         {
             objChangeRoute = obj;
+            setChangedDegree = changedDegree;
         }
 
 
@@ -26,10 +28,20 @@ namespace ControlTower
         /// <param name="e">Airplane object</param>
         public void OnRunWay_Booked(object source, ChangeRouteArgs e)
         {
+            //e.objChangeRoute.statusTime;
+            //MessageBox.Show(e.objChangeRoute.statusTime.ToString());
+            DateTime r = e.objChangeRoute.statusTime;
             DateTime setTime = DateTime.Now;
+
+            TimeSpan tid = setTime - r;
+            System.TimeSpan diff1 = setTime.Subtract(r);
             e.objChangeRoute.statusTime = setTime;
-            e.objChangeRoute.statusProperty = EnumFlightTower.EnumStatus.ChangeRoute.ToString();
-            MessageBox.Show("ROUTE IS CHANGED fOR THE FLYING OBJECT!!");
+                
+            //MessageBox.Show((r.Subtract(setTime).TotalMinutes).ToString());
+
+            string poke = (r.Subtract(setTime).TotalMinutes).ToString();
+
+            e.objChangeRoute.statusProperty = "You changed degree by " + e.setChangedDegree.ToString() + " (" + diff1 + " sekunder sedan)";
            // MessageBox.Show("Info: You changed the flight (" + e.objChangeRoute.FlightNumber + ") status to:" + e.objChangeRoute.statusProperty);
         }
     }

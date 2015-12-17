@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControlTower
 {
-    class EnumFlightTower
+    public class EnumFlightTower
     {
         public enum EnumStatus
         {
@@ -18,9 +18,11 @@ namespace ControlTower
 
         public enum ChangeRoutes
         {
-            deg1,
-            deg20,
-            no
+            D10,
+            D20,
+            D60,
+            D100,
+
         }
     }
 }
