@@ -12,27 +12,38 @@ namespace ControlTower
     public class StartEventArgs : EventArgs
     {
         private Airplane objStart = null;
+        DateTime setTime = DateTime.Now;
 
         public StartEventArgs(Airplane obj)
         {
             // TODO: Complete member initialization
             this.objStart = obj;
+            objStart.statusProperty = EnumFlightTower.EnumStatus.TakeOff.ToString();
+            //MessageBox.Show(objStart.statusProperty.ToString());
+            objStart.statusTime = setTime;
+            
         }
 
+        //public string TxtStatus { get { return objStart.statusProperty; } }
 
         /// <summary>
         /// Set the status property of the object
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e">Airplane object</param>
-        public void OnRunWay_Booked(object source, StartEventArgs e)
-        {
-            DateTime setTime = DateTime.Now;
-            //Airplane test = GetAt(e.Start);
-            e.objStart.statusProperty = EnumFlightTower.EnumStatus.TakeOff.ToString();
-            e.objStart.statusTime = setTime;
-           // MessageBox.Show("Info: You changed the flight (" + e.objStart.FlightNumber + ") status to: " + e.objStart.statusProperty);
-        }
+        //public void OnRunWay_Booked(object source, StartEventArgs e)
+        //{
+        //    DateTime setTime = DateTime.Now;
+
+        //    objStart.statusProperty = EnumFlightTower.EnumStatus.TakeOff.ToString();
+        //    //MessageBox.Show(objStart.statusProperty.ToString());
+
+
+        //    //e.objStart.statusProperty = EnumFlightTower.EnumStatus.TakeOff.ToString();
+        //    e.objStart.statusTime = setTime;
+
+        //    //MessageBox.Show("Info: You changed the flight (" + e.objStart.FlightNumber + ") status to: " + e.objStart.statusProperty);
+        //}
 
 
     }

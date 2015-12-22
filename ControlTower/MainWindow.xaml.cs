@@ -21,15 +21,16 @@ namespace ControlTower
     public partial class MainWindow : Window
     {
 
+        public string status = null;
+
         Airplane newFlight1 = new Airbus(1, "f4463f1", "SAS");
         Airplane newFlight2 = new Boeing(2, "f4463f2", "Air France");
         Airplane newFlight3 = new Boeing(3, "f4463f3", "AA");
         Airplane newFlight4 = new Airbus(4, "f4463f4", "SAS");
-        //ManagerAirplanes mngrAirplanes = null;
-        //ManagerAirplanes
-        //ManagerAirplanes<List> mngAirplanes = new ManagerAirplanes();
         
         RadarManager mngrRadar = null;
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -52,12 +53,10 @@ namespace ControlTower
         //Updates the GUI
         private void updateFlightRadar()
         {
-
             listFlightRadar.Items.Clear();
             foreach (var item in mngrRadar.ToStringArray())
             {
                 listFlightRadar.Items.Add(item.ToString());
-               
             }
         }
 
@@ -75,24 +74,29 @@ namespace ControlTower
                      
                     //Open new window, pass the object
                     FlightWindowObject newFlightWindowObj = new FlightWindowObject(airplaneObject);
-                    newFlightWindowObj.ShowDialog();
+                    newFlightWindowObj.EventStartOff += HandlerStartOff;
+                    newFlightWindowObj.EventLanding += HandlerLanding;
+                    newFlightWindowObj.EventChange_Route += HandlerChangedRoute;
 
-                    //if (newFlightWindowObj.DialogResult == true)
-                    //{
-                    //    airplaneObject.FlightNumber = newFlightWindowObj.objFlightNR;
-
-                    //    updateFlightRadar();
-                    //    MessageBox.Show(airplaneObject.FlightNumber + "Hej");
-
-                    //}
-                    
+                    //newFlightWindowObj.ShowDialog();
+                    newFlightWindowObj.Show();
             }
+            //updateFlightRadar();
+        }
+
+        public void HandlerStartOff(object sender, EventArgs e)
+        {
             updateFlightRadar();
         }
 
-        private void PopulateGrid()
+        public void HandlerLanding(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            updateFlightRadar();
+        }
+
+        public void HandlerChangedRoute(object sender, EventArgs e)
+        {
+            updateFlightRadar();
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -100,7 +104,21 @@ namespace ControlTower
             this.Close();
         }
 
-
+        //public event EventHandler<StartEventArgs> RunWayBookedStartOff;
+        //public event EventHandler<StartEventArgs> RunWayBookedStartOff;
+        //public void OnRunWay_Booked_StartOff(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show("Hej från main");
+        //    //If not null, then the runway booked for start off
+        //    if (RunWayBookedStartOff != null)
+        //    {
+        //        //RunWayBookedStartOff(this, new StartEventArgs() { Start = obj });
+        //        RunWayBookedStartOff(this, new StartEventArgs());
+        //        MessageBox.Show("Hej från main");
+                
+                
+        //    }
+        //}
 
     }
 }

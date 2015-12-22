@@ -25,34 +25,16 @@ namespace ControlTower
         /// </summary>
         public Airplane objPlane;
         public string objImage  { get; set; }
-        public string test = null;
 
-        public event EventHandler<LandEventArgs> RunWayBookedLanding;
-        public event EventHandler<StartEventArgs> RunWayBookedStartOff;
-        public event EventHandler<ChangeRouteArgs> Changed_routeTT;
-
-
+        public event EventHandler<ChangeRouteArgs> EventChange_Route;
+        public event EventHandler<StartEventArgs> EventStartOff;
+        public event EventHandler<LandEventArgs> EventLanding;
 
         public FlightWindowObject(Airplane AirplaneObject)
         {
             //get the objects properties
             this.objPlane = AirplaneObject;
             this.objImage = AirplaneObject.imgPlane();
-
-            var land = new LandEventArgs(objPlane);//Subscriber 
-            var runway_Start = new StartEventArgs(objPlane);//Subscriber
-            //var changed_route = new ChangeRouteArgs(objPlane, test);
-
-            //Changed_routeTT += changed_route.OnRunWay_Booked;
-
-            RunWayBookedStartOff += runway_Start.OnRunWay_Booked;
-            //add subscription
-            RunWayBookedLanding += land.OnRunWay_Booked;
-
-
-           
-            //OnRunWay_Booked_ChangedROUTE(objPlane);
-            
 
             InitializeComponent();
             //Update the GUI
@@ -70,7 +52,6 @@ namespace ControlTower
             this.Title = "FlightNumber: " + objPlane.FlightNumber;
 
             //Add info about object to list
-            //ListFlightObject.Items.Add(objPlane.ToString());
             ListFlightObject.Items.Add("Flight NR:" + objPlane.FlightNumber + "     Status: " + objPlane.statusProperty);
 
 
@@ -87,86 +68,75 @@ namespace ControlTower
             //Add image from object
             AirplaneImg.Source = bitmap;
 
-
-
-            //listBoxCategories.Items.AddRange(Enum.GetNames(typeof(AnimalTypes.AnimalType)));
-            //listBoxCategories.SelectedIndex = (int)AnimalTypes.MammalsType.Dog;
-            //ChangeRouteComboBox.Items.Add(Enum.GetNames(typeof(EnumFlightTower.ChangeRoutes)));
+            //get all routes
             ChangeRouteComboBox.Items.Clear();
-            //ChangeRouteComboBox.SelectedIndex = (int)EnumFlightTower.ChangeRoutes.no;
-            //ChangeRouteComboBox.SelectedIndex = 0;
             foreach (var item in (Enum.GetNames(typeof(EnumFlightTower.ChangeRoutes))))
             {
                 ChangeRouteComboBox.Items.Add(item);
             }
 
-            //ChangeRouteComboBox.SelectedIndex = 0;
-            
-            ////ChangeRouteComboBox.Items.
-            //ChangeRouteComboBox.SelectedIndex = (int)EnumFlightTower.ChangeRoutes.deg1;
-            //ChangeRouteComboBox.Items.Add("Sunday");
-            //ChangeRouteComboBox.Items.Add("Monday");
-            //ChangeRouteComboBox.Items.Add("Tuesday");
-
         }
 
-        private void START_Click(object sender, RoutedEventArgs e)
+        public void START_Click(object sender, RoutedEventArgs e)
         {
-            OnRunWay_Booked_StartOff(objPlane);
-
+            if (EventStartOff != null)   // Kolla att det finns en prenumeration
+                EventStartOff(this, new StartEventArgs(objPlane));
             //Update GUI
             InitializeGUI();
          
         }
 
 
-
-
         private void LAND_Click(object sender, RoutedEventArgs e)
         {
-            OnRunWay_Booked_Landing(objPlane);
-
-            ////MessageBox.Show(ChangeRouteComboBox.SelectedIndex.ToString());
-            //MessageBox.Show(ChangeRouteComboBox.SelectedValue.ToString());
+            //OnRunWay_Booked_Landing(objPlane);
+            if (EventLanding != null)  
+                EventLanding(this, new LandEventArgs(objPlane));
             //Update GUI
             InitializeGUI();
         }
 
 
-
-
-
-        protected virtual void OnRunWay_Booked_StartOff(Airplane obj)
+        private void ChangeRouteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //If not null, then the runway booked for start off
-            if (RunWayBookedStartOff != null)
-            {
-                //RunWayBookedStartOff(this, new StartEventArgs() { Start = obj });
-                RunWayBookedStartOff(this, new StartEventArgs(obj));
-            }
+            EnumFlightTower.ChangeRoutes getEnum = GetEnumChangedRoute(ChangeRouteComboBox.Text);
+
+            if (EventChange_Route != null)
+                EventChange_Route(this, new ChangeRouteArgs(objPlane, getEnum));
+
+            ChangeRouteComboBox.Items.Clear();
+            InitializeGUI();
+
         }
 
-        protected virtual void OnRunWay_Booked_Landing(Airplane obj)
-        {
-            //If not null, then the runway booked for landing
-            if (RunWayBookedLanding != null)
-            {
-                //RunWayBookedLanding(this, new LandEventArgs() { Landing = obj });
-                RunWayBookedLanding(this, new LandEventArgs(obj));
-            }
-        }
 
-        protected virtual void OnRunWay_Booked_ChangedROUTE(Airplane obj, EnumFlightTower.ChangeRoutes t)
-        {
+        //protected virtual void OnRunWay_Booked_StartOff(Airplane obj)
+        //{
+        //    //If not null, then the runway booked for start off
+        //    if (RunWayBookedStartOff != null)
+        //    {
+        //        //RunWayBookedStartOff(this, new StartEventArgs() { Start = obj });
+        //        RunWayBookedStartOff(this, new StartEventArgs(obj));
+        //    }
+        //}
 
-            //If not null, then the runway booked for landing
-            if (Changed_routeTT != null)
-            {
+        //protected virtual void OnRunWay_Booked_Landing(Airplane obj)
+        //{
+        //    //If not null, then the runway booked for landing
+        //    if (RunWayBookedLanding != null)
+        //    {
+        //        //RunWayBookedLanding(this, new LandEventArgs() { Landing = obj });
+        //        RunWayBookedLanding(this, new LandEventArgs(obj));
+        //    }
+        //}
 
-                //RunWayBookedLanding(this, new LandEventArgs() { Landing = obj });
-                Changed_routeTT(this, new ChangeRouteArgs(obj, t));
-            }
-        }
+        //protected virtual void OnRunWay_Booked_ChangedROUTE(Airplane obj, EnumFlightTower.ChangeRoutes t)
+        //{
+
+        //    //If not null, then the runway booked for landing
+        //    if (EventChange_Route != null)
+        //        EventChange_Route(this, new ChangeRouteArgs(objPlane, t));
+        //}
 
 
         private void btnBackToFlightControl_Click(object sender, RoutedEventArgs e)
@@ -209,19 +179,7 @@ namespace ControlTower
             }
             return get;
         }
-        private void ChangeRouteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            EnumFlightTower.ChangeRoutes getEnum = GetEnumChangedRoute(ChangeRouteComboBox.Text);
 
-            var changed_route = new ChangeRouteArgs(objPlane, getEnum);
-            Changed_routeTT += changed_route.OnRunWay_Booked;
-            OnRunWay_Booked_ChangedROUTE(objPlane, getEnum);
-            //var changed_route = new ChangeRouteArgs(objPlane, test);
-
-            ChangeRouteComboBox.Items.Clear();
-            InitializeGUI();
-            
-        }
     }
 }
 
