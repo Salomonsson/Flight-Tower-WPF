@@ -10,16 +10,22 @@ namespace ControlTower
     public class ChangeRouteArgs : EventArgs
     {
         //public Airplane Landing { get; set; }
-        private Airplane objChangeRoute = null;
-        DateTime setTime = DateTime.Now;
-        private EnumFlightTower.ChangeRoutes setChangedDegree;
+       // private Airplane objChangeRoute = null;
+        //DateTime setTime = DateTime.Now;
+        //private EnumFlightTower.ChangeRoutes setChangedDegree;
 
-        public ChangeRouteArgs(Airplane obj, EnumFlightTower.ChangeRoutes changedDegree)
+        public string objChangeRoute { get; set; }
+        //public EnumFlightTower.ChangeRoutes setChangedDegree { get; set; } 
+
+        public ChangeRouteArgs(string obj)
         {
-            objChangeRoute = obj;
-            objChangeRoute.statusTime = setTime;
-            setChangedDegree = changedDegree;
-            objChangeRoute.statusProperty = changedDegree.ToString();
+            //objChangeRoute = obj.ToString();
+            objChangeRoute = obj.ToString();
+            
+
+            //objChangeRoute.statusTime = setTime;
+            ////setChangedDegree = changedDegree;
+            //objChangeRoute.statusProperty = changedDegree.ToString();
 
             //MessageBox.Show(objChangeRoute.statusProperty.ToString());
             //MessageBox.Show(objChangeRoute.statusTime.ToString());

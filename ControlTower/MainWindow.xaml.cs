@@ -35,8 +35,8 @@ namespace ControlTower
         {
             InitializeComponent();
             this.Title = "Flight Control Application";
+
             mngrRadar = new RadarManager();
-            
             //ManagerAirplanes<T> mngrAiplanes = new ManagerAirplanes();
             ////Instantiate Test Values
             mngrRadar.AddAirplane(newFlight1);
@@ -47,6 +47,7 @@ namespace ControlTower
 
             //Update GUI
             updateFlightRadar();
+
         }
 
 
@@ -84,19 +85,32 @@ namespace ControlTower
             //updateFlightRadar();
         }
 
-        public void HandlerStartOff(object sender, EventArgs e)
+        public void HandlerStartOff(object sender, StartEventArgs e)
         {
+            //listFlightRadar.Items.Add(e.objStart);
+            //MessageBox.Show(e.objStart);
+            //int x = Int32.Parse(e.objStart);
+            //mngrRadar.GetAt(x);
+            //MessageBox.Show(mngrRadar.GetAt(Int32.Parse(e.objStart)).ToString());
+            //listFlightRadar.Items.Add(mngrRadar.GetAt(Int32.Parse(e.objStart)).ToString());
             updateFlightRadar();
         }
 
         public void HandlerLanding(object sender, EventArgs e)
         {
-            updateFlightRadar();
+
+            //updateFlightRadar();
         }
 
-        public void HandlerChangedRoute(object sender, EventArgs e)
+        public void HandlerChangedRoute(object sender, ChangeRouteArgs e)
         {
-            updateFlightRadar();
+
+            listFlightRadar.Items.Add(e.objChangeRoute);
+
+            //mngrRadar.AddAirplane(e.objChangeRoute);
+
+            //mngrRadar.AddAirplane(newFlight4);
+            //updateFlightRadar();
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)

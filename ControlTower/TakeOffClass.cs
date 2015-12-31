@@ -11,16 +11,18 @@ namespace ControlTower
 
     public class StartEventArgs : EventArgs
     {
-        private Airplane objStart = null;
-        DateTime setTime = DateTime.Now;
+        //private Airplane objStart = null;
+     
 
-        public StartEventArgs(Airplane obj)
+
+        public string objStart { get; set; }
+
+        public StartEventArgs(string obj)
         {
             // TODO: Complete member initialization
-            this.objStart = obj;
-            objStart.statusProperty = EnumFlightTower.EnumStatus.TakeOff.ToString();
-            //MessageBox.Show(objStart.statusProperty.ToString());
-            objStart.statusTime = setTime;
+            objStart = obj;
+            //MessageBox.Show(objStart.ToString());
+
             
         }
 
