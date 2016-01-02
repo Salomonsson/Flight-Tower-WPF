@@ -29,7 +29,7 @@ namespace ControlTower
         Airplane newFlight4 = new Airbus(4, "f4463f4", "SAS");
         
         RadarManager mngrRadar = null;
-
+        
 
         public MainWindow()
         {
@@ -81,36 +81,46 @@ namespace ControlTower
 
                     //newFlightWindowObj.ShowDialog();
                     newFlightWindowObj.Show();
+                    //updateFlightRadar();
             }
             //updateFlightRadar();
         }
 
+
         public void HandlerStartOff(object sender, StartEventArgs e)
         {
-            //listFlightRadar.Items.Add(e.objStart);
-            //MessageBox.Show(e.objStart);
-            //int x = Int32.Parse(e.objStart);
-            //mngrRadar.GetAt(x);
-            //MessageBox.Show(mngrRadar.GetAt(Int32.Parse(e.objStart)).ToString());
-            //listFlightRadar.Items.Add(mngrRadar.GetAt(Int32.Parse(e.objStart)).ToString());
+            //Update the flight by the income string
+            Airplane updateFlight = mngrRadar.GetAt(Int32.Parse(e.objStart));
+
+            //Set time of change to the object
+            DateTime setTime = DateTime.Now;
+            updateFlight.statusTime = setTime;
+           
+            //Update the flight logger
             updateFlightRadar();
         }
 
-        public void HandlerLanding(object sender, EventArgs e)
+        public void HandlerLanding(object sender, LandEventArgs e)
         {
-
-            //updateFlightRadar();
+            //set time for change - update the income object
+            DateTime setTime = DateTime.Now;
+            e.objLanding.statusTime = setTime;
+            //listFlightRadar.Items.Add();
+            //Refresh the logger list
+            updateFlightRadar();
         }
 
         public void HandlerChangedRoute(object sender, ChangeRouteArgs e)
         {
 
-            listFlightRadar.Items.Add(e.objChangeRoute);
+            DateTime setTime = DateTime.Now;
+            Airplane updateFlight = mngrRadar.GetAt(Int32.Parse(e.objChangeRoute));
+            updateFlight.statusTime = setTime;
 
-            //mngrRadar.AddAirplane(e.objChangeRoute);
+            //MessageBox.Show(updateFlight.ToString());
 
-            //mngrRadar.AddAirplane(newFlight4);
-            //updateFlightRadar();
+            //listFlightRadar.Items.Add(e.objChangeRoute);
+            updateFlightRadar();
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -118,21 +128,7 @@ namespace ControlTower
             this.Close();
         }
 
-        //public event EventHandler<StartEventArgs> RunWayBookedStartOff;
-        //public event EventHandler<StartEventArgs> RunWayBookedStartOff;
-        //public void OnRunWay_Booked_StartOff(object sender, RoutedEventArgs e)
-        //{
-        //    MessageBox.Show("Hej från main");
-        //    //If not null, then the runway booked for start off
-        //    if (RunWayBookedStartOff != null)
-        //    {
-        //        //RunWayBookedStartOff(this, new StartEventArgs() { Start = obj });
-        //        RunWayBookedStartOff(this, new StartEventArgs());
-        //        MessageBox.Show("Hej från main");
-                
-                
-        //    }
-        //}
+
 
     }
 }

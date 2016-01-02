@@ -79,14 +79,13 @@ namespace ControlTower
 
         public void START_Click(object sender, RoutedEventArgs e)
         {
-            DateTime setTime = DateTime.Now;
-
+            //Change properties of the object
             objPlane.statusProperty = EnumFlightTower.EnumStatus.TakeOff.ToString();
-            //MessageBox.Show(objStart.statusProperty.ToString());
-            objPlane.statusTime = setTime;
 
             if (EventStartOff != null)   // Kolla att det finns en prenumeration
                 EventStartOff(this, new StartEventArgs(objPlane.Id.ToString()));
+
+
             //Update GUI
             InitializeGUI();
          
@@ -98,6 +97,7 @@ namespace ControlTower
             //OnRunWay_Booked_Landing(objPlane);
             if (EventLanding != null)  
                 EventLanding(this, new LandEventArgs(objPlane));
+
             //Update GUI
             InitializeGUI();
         }
@@ -105,17 +105,16 @@ namespace ControlTower
 
         private void ChangeRouteComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateTime setTime = DateTime.Now;
-            EnumFlightTower.ChangeRoutes getEnum = GetEnumChangedRoute(ChangeRouteComboBox.Text);
 
-            objPlane.statusTime = setTime;
+            //Change properties of the object
+            EnumFlightTower.ChangeRoutes getEnum = GetEnumChangedRoute(ChangeRouteComboBox.Text);
             //setChangedDegree = changedDegree;
             objPlane.statusProperty = getEnum.ToString();
 
 
 
             if (EventChange_Route != null)
-                EventChange_Route(this, new ChangeRouteArgs(objPlane.ToString()));
+                EventChange_Route(this, new ChangeRouteArgs(objPlane.Id.ToString()));
 
             ChangeRouteComboBox.Items.Clear();
             InitializeGUI();
