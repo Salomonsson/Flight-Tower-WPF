@@ -9,7 +9,9 @@ namespace ControlTower
 {
     class Airbus : Airplane
     {
-        protected string ImgPath = @"C:\Users\Psylon\Desktop\airBus380.jpg";
+        //protected string ImgPath = @"C:\Users\Psylon\Desktop\airBus380.jpg";
+        protected string ImgPath = @"C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\img\airBus380.jpg";
+
         DateTime TimeNow = DateTime.Now;
         public Airbus()
         {

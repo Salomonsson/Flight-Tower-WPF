@@ -57,7 +57,8 @@ namespace ControlTower
 
 
             //Default Image
-            var uri = new Uri(@"C:\Users\Psylon\Desktop\imgMissing.jpg");
+           var uri = new Uri(@"C:\Users\Psylon\Desktop\imgMissing.jpg");
+            
             //Set new image
             uri = new Uri(objImage.ToString());
             if (uri == null)//Not working propely
