@@ -10,7 +10,7 @@ namespace ControlTower
     {
         //protected string ImgPath = @"C:\Users\Psylon\Desktop\boeing.jpg";
         protected string ImgPath = @"C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\img\boeing.jpg";
-        DateTime TimeNow = DateTime.Now;
+        DateTime TimeNow = DateTime.Now;//Set current time
         public Boeing()
         {
 

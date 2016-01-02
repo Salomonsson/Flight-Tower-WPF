@@ -37,7 +37,7 @@ namespace ControlTower
             this.Title = "Flight Control Application";
 
             mngrRadar = new RadarManager();
-            //ManagerAirplanes<T> mngrAiplanes = new ManagerAirplanes();
+
             ////Instantiate Test Values
             mngrRadar.AddAirplane(newFlight1);
             mngrRadar.AddAirplane(newFlight2);
@@ -81,9 +81,7 @@ namespace ControlTower
 
                     //newFlightWindowObj.ShowDialog();
                     newFlightWindowObj.Show();
-                    //updateFlightRadar();
             }
-            //updateFlightRadar();
         }
 
 
