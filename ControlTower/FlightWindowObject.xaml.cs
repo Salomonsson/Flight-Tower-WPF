@@ -75,6 +75,9 @@ namespace ControlTower
             {
                 ChangeRouteComboBox.Items.Add(item);
             }
+            //comboBox1.Items.Add(new Item("Nobugz", 666));
+            //ChangeRouteComboBox.Items.Add(("test", 1);
+             //ChangeRouteComboBox.Items.Add(new Item("Blue", 1));
 
         }
 
@@ -84,11 +87,11 @@ namespace ControlTower
             objPlane.statusProperty = EnumFlightTower.EnumStatus.TakeOff.ToString();
 
             if (EventStartOff != null)   // Kolla att det finns en prenumeration
-                EventStartOff(this, new StartEventArgs(objPlane.Id.ToString()));
+                    EventStartOff(this, new StartEventArgs(objPlane.Id.ToString()));
 
 
             //Update GUI
-            InitializeGUI();
+            //InitializeGUI();
          
         }
 
@@ -100,7 +103,7 @@ namespace ControlTower
                 EventLanding(this, new LandEventArgs(objPlane));
 
             //Update GUI
-            InitializeGUI();
+            //InitializeGUI();
         }
 
 

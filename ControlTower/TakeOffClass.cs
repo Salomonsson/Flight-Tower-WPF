@@ -19,11 +19,8 @@ namespace ControlTower
 
         public StartEventArgs(string obj)
         {
-            // TODO: Complete member initialization
             objStart = obj;
             //MessageBox.Show(objStart.ToString());
-
-            
         }
 
         //public string TxtStatus { get { return objStart.statusProperty; } }

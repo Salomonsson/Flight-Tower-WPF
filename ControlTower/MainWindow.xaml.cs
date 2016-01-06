@@ -62,7 +62,6 @@ namespace ControlTower
         }
 
 
-      
 
         private void btnRunway_Click(object sender, RoutedEventArgs e)
         {
@@ -72,7 +71,7 @@ namespace ControlTower
                 
                     //Get selected object
                     Airplane airplaneObject = mngrRadar.GetAt(listFlightRadar.SelectedIndex);
-                     
+
                     //Open new window, pass the object
                     FlightWindowObject newFlightWindowObj = new FlightWindowObject(airplaneObject);
                     newFlightWindowObj.EventStartOff += HandlerStartOff;
@@ -81,6 +80,10 @@ namespace ControlTower
 
                     //newFlightWindowObj.ShowDialog();
                     newFlightWindowObj.Show();
+            }
+            else
+            {
+                MessageBox.Show("Du må välja ett av objekten. ");
             }
         }
 
@@ -92,33 +95,40 @@ namespace ControlTower
 
             //Set time of change to the object
             DateTime setTime = DateTime.Now;
-            updateFlight.statusTime = setTime;
-           
+            //updateFlight.statusTime = setTime;
+            listFlightRadar.Items.Add(updateFlight + " ändrad tid: " + setTime.ToString());
             //Update the flight logger
-            updateFlightRadar();
+            //updateFlightRadar();
         }
 
         public void HandlerLanding(object sender, LandEventArgs e)
         {
             //set time for change - update the income object
             DateTime setTime = DateTime.Now;
-            e.objLanding.statusTime = setTime;
+            //e.objLanding.statusTime = setTime;
             //listFlightRadar.Items.Add();
+            
+            listFlightRadar.Items.Add(e.objLanding + "  ändrat: " + setTime.ToString());
+
             //Refresh the logger list
-            updateFlightRadar();
+            //updateFlightRadar();
         }
 
         public void HandlerChangedRoute(object sender, ChangeRouteArgs e)
         {
 
             DateTime setTime = DateTime.Now;
-            Airplane updateFlight = mngrRadar.GetAt(Int32.Parse(e.objChangeRoute));
-            updateFlight.statusTime = setTime;
+            //Airplane updateFlight = mngrRadar.GetAt(Int32.Parse(e.objChangeRoute));
+            //updateFlight.statusTime = setTime;
 
             //MessageBox.Show(updateFlight.ToString());
 
-            //listFlightRadar.Items.Add(e.objChangeRoute);
-            updateFlightRadar();
+            //Update the flight by the income string
+            Airplane updateFlight = mngrRadar.GetAt(Int32.Parse(e.objChangeRoute));
+
+            listFlightRadar.Items.Add(updateFlight + " Ändrad tid: " + setTime.ToString());
+            
+            //updateFlightRadar();
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
