@@ -115,7 +115,7 @@
     <Resource Include="img\boeing.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="NewFolder1\boeing.jpg" />
+    <Resource Include="img\imgMissing.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

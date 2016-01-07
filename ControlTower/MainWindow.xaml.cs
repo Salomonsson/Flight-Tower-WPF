@@ -128,6 +128,7 @@ namespace ControlTower
 
             listFlightRadar.Items.Add(updateFlight + " Ändrad tid: " + setTime.ToString());
             
+            
             //updateFlightRadar();
         }
 

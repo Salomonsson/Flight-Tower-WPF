@@ -9,8 +9,11 @@ namespace ControlTower
     class Boeing : Airplane
     {
         //protected string ImgPath = @"C:\Users\Psylon\Desktop\boeing.jpg";
-        protected string ImgPath = @"C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\img\boeing.jpg";
-       
+       // protected string ImgPath = @"C:\Users\Psylon\documents\visual studio 2013\Projects\ControlTower\ControlTower\img\boeing.jpg";
+        //protected string ImgPath = "img/boeinggg.jpg";
+        //Image is missing
+        protected string ImgPath;
+
         DateTime TimeNow = DateTime.Now;//Set current time
         public Boeing()
         {

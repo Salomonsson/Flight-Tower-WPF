@@ -35,6 +35,7 @@ namespace ControlTower
             //get the objects properties
             this.objPlane = AirplaneObject;
             this.objImage = AirplaneObject.imgPlane();
+           
 
             InitializeComponent();
             //Update the GUI
@@ -54,20 +55,19 @@ namespace ControlTower
             //Add info about object to list
             ListFlightObject.Items.Add("Flight NR:" + objPlane.FlightNumber + "     Status: " + objPlane.statusProperty);
 
-
-
-            //Default Image
-           var uri = new Uri(@"C:\Users\Psylon\Desktop\imgMissing.jpg");
-            
-            //Set new image
-            uri = new Uri(objImage.ToString());
-            if (uri == null)//Not working propely
+            ///If the object got no image then set imgMissing.jpg as image of the object. 
+            ///The object image is set in every class. Which is simply very logical.. ????
+            if (objPlane.imgPlane() == null)
             {
-                uri = new Uri(@"C:\Users\Psylon\Desktop\imgMissing.jpg");
+                string imgMissingVariable = "img/imgMissing.jpg";
+                AirplaneImg.Source = new BitmapImage(new Uri(imgMissingVariable, UriKind.Relative));
             }
-            var bitmap = new BitmapImage(uri);
-            //Add image from object
-            AirplaneImg.Source = bitmap;
+            else
+            {
+                ///so the image was not empty, then set the image from inherited class.
+                AirplaneImg.Source = new BitmapImage(new Uri(objPlane.imgPlane().ToString(), UriKind.Relative));
+            }
+            
 
             //get all routes
             ChangeRouteComboBox.Items.Clear();
