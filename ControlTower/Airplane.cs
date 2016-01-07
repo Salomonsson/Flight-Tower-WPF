@@ -29,22 +29,18 @@ namespace ControlTower
 
         }
 
-        //public event TickHandler Tick;
-        //public EventArgs e = null;
-        //public delegate void TickHandler(Airplane m, EventArgs e);
-        //public void Start()
-        //{
-        //    //System.Threading.Thread.Sleep(3000);
-        //    if (Tick != null)
-        //    {
-        //        Tick(this, e);
-        //    }
-
-        //}
         public int Id { get; set; } // generates an auto-property
         public string FlightNumber { get; set; } // generates an auto-property
         public string Company { get; set; } // generates an auto-property
-        public string statusProperty { get; set; }
+        //public string statusProperty { get; set; }
+
+        private string strProp = "default unknown";
+        public string statusProperty
+        {
+            get { return strProp; }
+            set { strProp = value; }
+        }
+        
 
         public DateTime statusTime { get; set; }
 

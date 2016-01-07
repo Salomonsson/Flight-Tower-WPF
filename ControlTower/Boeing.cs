@@ -45,7 +45,8 @@ namespace ControlTower
         public override string ToString()
         {
             //return base.ToString() + " Ljud:" + Sound;
-            return base.ToString() + " TIME:  " + statusTime + "      STATUS: " + statusProperty;
+            //return base.ToString() + " TIME:  " + statusTime + "      STATUS: " + statusProperty;
+            return base.ToString() + "Current Status: " + statusProperty;
         }
     }
 }

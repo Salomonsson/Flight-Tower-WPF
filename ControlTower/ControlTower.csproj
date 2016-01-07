@@ -112,7 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\airBus380.jpg" />
-    <Resource Include="img\boeing.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\imgMissing.jpg" />

@@ -54,10 +54,17 @@ namespace ControlTower
         //Updates the GUI
         private void updateFlightRadar()
         {
-            listFlightRadar.Items.Clear();
+            
+            //listFlightRadar.Items.Clear();
+            //foreach (var item in mngrRadar.ToStringArray())
+            //{
+            //    listFlightRadar.Items.Add(item.ToString());
+            //}
+
+            listFlightRadarControl.Items.Clear();
             foreach (var item in mngrRadar.ToStringArray())
             {
-                listFlightRadar.Items.Add(item.ToString());
+                listFlightRadarControl.Items.Add(item.ToString());
             }
         }
 
@@ -66,11 +73,13 @@ namespace ControlTower
         private void btnRunway_Click(object sender, RoutedEventArgs e)
         {
             
-            if (listFlightRadar.SelectedIndex >= 0)
+            //if (listFlightRadar.SelectedIndex >= 0)
+            if (listFlightRadarControl.SelectedIndex >= 0)
             {
                 
                     //Get selected object
-                    Airplane airplaneObject = mngrRadar.GetAt(listFlightRadar.SelectedIndex);
+                    //Airplane airplaneObject = mngrRadar.GetAt(listFlightRadar.SelectedIndex);
+                     Airplane airplaneObject = mngrRadar.GetAt(listFlightRadarControl.SelectedIndex);
 
                     //Open new window, pass the object
                     FlightWindowObject newFlightWindowObj = new FlightWindowObject(airplaneObject);
@@ -97,8 +106,10 @@ namespace ControlTower
             DateTime setTime = DateTime.Now;
             //updateFlight.statusTime = setTime;
             listFlightRadar.Items.Add(updateFlight + " ändrad tid: " + setTime.ToString());
-            //Update the flight logger
-            //updateFlightRadar();
+
+            //mngrRadar.DeleteAt(Int32.Parse(e.objStart));
+            //Update the flight Control logger
+            updateFlightRadar();
         }
 
         public void HandlerLanding(object sender, LandEventArgs e)
@@ -110,8 +121,8 @@ namespace ControlTower
             
             listFlightRadar.Items.Add(e.objLanding + "  ändrat: " + setTime.ToString());
 
-            //Refresh the logger list
-            //updateFlightRadar();
+            //Update the flight Control logger
+            updateFlightRadar();
         }
 
         public void HandlerChangedRoute(object sender, ChangeRouteArgs e)
@@ -127,14 +138,20 @@ namespace ControlTower
             Airplane updateFlight = mngrRadar.GetAt(Int32.Parse(e.objChangeRoute));
 
             listFlightRadar.Items.Add(updateFlight + " Ändrad tid: " + setTime.ToString());
-            
-            
-            //updateFlightRadar();
+
+
+            //Update the flight Control logger
+            updateFlightRadar();
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void listFlightRadarControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
 
 

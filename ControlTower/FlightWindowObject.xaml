@@ -9,6 +9,7 @@
         <Button x:Name="LAND" Content="LAND" HorizontalAlignment="Left" Margin="577,209,0,0" VerticalAlignment="Top" Width="75" Click="LAND_Click"/>
         <Button x:Name="btnBackToFlightControl" Content="Tillbaka till Flight Control" HorizontalAlignment="Left" Margin="326,253,0,0" VerticalAlignment="Top" Width="326" RenderTransformOrigin="-0.303,0.622" Click="btnBackToFlightControl_Click"/>
         <ComboBox x:Name="ChangeRouteComboBox" HorizontalAlignment="Left" Margin="433,208,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ChangeRouteComboBox_SelectionChanged"/>
+        <Label x:Name="LabelImgStatus" Content="Label" HorizontalAlignment="Left" Margin="35,181,0,0" VerticalAlignment="Top" Width="168"/>
 
     </Grid>
 </Window>

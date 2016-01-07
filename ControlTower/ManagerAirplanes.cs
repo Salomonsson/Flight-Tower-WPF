@@ -104,6 +104,20 @@ namespace ControlTower
             return m_list[index];
         }
 
+        //public List<string> SortGen()
+        //{
+        //    List<string> lst = new List<string>();
+
+        //    //m_list.Sort();
+        //    foreach (T an in m_list)
+        //    {
+        //        lst.Add(an.ToString());
+        //    }
+        //    //return new List<T>();
+        //    lst.Sort();
+        //    return lst;
+        //    //return m_list;
+        //}
 
         /// <summary>
         /// Read only property to get nr of elemnts in list
